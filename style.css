@@ -1,57 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Simple Clip Editor</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <h2>🎞️ Video Clip Editor</h2>
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
 
-    <label for="videoFile">Upload Video:</label>
-    <input type="file" id="videoFile" accept="video/*">
+.container {
+  display: flex;
+  flex-direction: column;
+}
 
-    <label for="startTime">Start Time (seconds):</label>
-    <input type="number" id="startTime" min="0" value="0">
+input, button {
+  margin: 10px 0;
+  padding: 8px;
+  width: 100%;
+}
 
-    <label for="endTime">End Time (seconds):</label>
-    <input type="number" id="endTime" min="1" value="10">
+label {
+  font-weight: bold;
+}
 
-    <button onclick="playClip()">Preview Clip</button>
-
-    <video id="videoPlayer" controls>
-      <source src="" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </div>
-
-  <script>
-    const videoPlayer = document.getElementById('videoPlayer');
-    const videoFileInput = document.getElementById('videoFile');
-
-    videoFileInput.addEventListener('change', function () {
-      const file = this.files[0];
-      if (file) {
-        const url = URL.createObjectURL(file);
-        videoPlayer.src = url;
-      }
-    });
-
-    function playClip() {
-      const start = parseFloat(document.getElementById('startTime').value);
-      const end = parseFloat(document.getElementById('endTime').value);
-
-      videoPlayer.currentTime = start;
-      videoPlayer.play();
-
-      videoPlayer.ontimeupdate = () => {
-        if (videoPlayer.currentTime >= end) {
-          videoPlayer.pause();
-          videoPlayer.ontimeupdate = null;
-        }
-      };
-    }
-  </script>
-</body>
-</html>
+video {
+  width: 100%;
+  margin-top: 20px;
+}
